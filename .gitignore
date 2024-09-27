@@ -1,3 +1,4 @@
+.env
 /src/photos/photo
 /venv
 handlers/more_checker.py
@@ -23,3 +24,4 @@ logs.log
 test_2.py
 tst_image.py
 valo_lib_more.py
+.idea
