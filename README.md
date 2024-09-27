@@ -7,7 +7,7 @@
 ### Функционал
 
 ### 1. Вывод инвенатря аккаунта
-<img src='./images/skins_screen.jpg' width=300 height=auto>
+
 <img src='./images/skins.jpg' width=300 height=auto>
 
   + [x] *Изображение инвентаря*
