@@ -167,14 +167,15 @@ logger = logging.getLogger('app.base')
 def image_skins(skin_full,lang):
     logger.info('Запуск image_skins')
     skin_full = dict(sorted(skin_full.items()))
+    print(skin_full)
     links = []
-    images_folder = r'src\photos\photo'
+    images_folder = r'src/photos/photo'
     # Определите размер фонового изображения
     background_width = 1000
     background_height = 1500
     # Определите путь к папке, в которой нужно сохранить созданные фоны
     output_folder = f'accept_photo/'
-    # Создайте пустой фон
+    # Создайем пустой фон
     background = Image.new('RGBA', (background_width, background_height), (39, 39, 39))  # 0,0,0,255
     # Создайте объект ImageDraw для добавления текста
     draw = ImageDraw.Draw(background)
@@ -298,7 +299,7 @@ def make_color(name):
                    'SELECT':(31,61,58),#Голубой
                    'BATTLEPASS':(31,61,58)
                    }
-    with open('skins_info\collections_tier.json','r',encoding='UTF8') as file:
+    with open('skins_info/collections_tier.json','r',encoding='UTF8') as file:
         collection_data = json.load(file)
         found = False  # Используем флаг для отслеживания наличия элемента в списке
         for collection, list_skins in collection_data.items():

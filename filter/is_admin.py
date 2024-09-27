@@ -2,7 +2,7 @@ from aiogram import types
 from aiogram.dispatcher.filters import Filter
 
 from db.base_db import DataBase
-from main import bot
+
 import config
 
 db = DataBase('test.db')

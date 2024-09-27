@@ -11,7 +11,7 @@ def auth_menu(menu=None):
                      InlineKeyboardButton(text='🤖Агенты',callback_data=cb.new(action='agent')))
         #keyboard.add(InlineKeyboardButton(text='🛒 Продать аккаунт', callback_data=cb.new(action='sell_acc')))
 
-        keyboard.add(InlineKeyboardButton(text='🌌Ночной маркет',callback_data=cb.new(action='night_market')))
+        #keyboard.add(InlineKeyboardButton(text='🌌Ночной маркет',callback_data=cb.new(action='night_market')))
 
         keyboard.add(InlineKeyboardButton(text='ℹИнформация по аккаунту',callback_data=cb.new(action='account')),
                     InlineKeyboardButton(text='🚪 Выход',callback_data=cb.new(action='exit')))

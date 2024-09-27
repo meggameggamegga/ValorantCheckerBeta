@@ -1,6 +1,5 @@
 
 import logging
-from filter.Language_filter import IsLanguageENG_CALL
 from filter.is_admin import *
 
 from keyboards.inline import cb
@@ -16,7 +15,7 @@ from aiogram import types
 
 logger = logging.getLogger('app.base.setting_menu')
 
-@dp.callback_query_handler(IsLanguageENG_CALL(),cb.filter(action='settings_eng'))
+@dp.callback_query_handler(cb.filter(action='settings_eng'))
 async def settings_change(call:types.CallbackQuery):
     await call.message.delete()
     await call.message.answer('🌎 Select a language',reply_markup=set_language_menu())

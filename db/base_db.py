@@ -11,12 +11,12 @@ class DataBase:
     def create_table(self):
         with self.connect:
             self.cursor.execute('''CREATE TABLE IF NOT EXISTS users (
-                                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                    user_id INTEGER,
-                                    user_name TEXT,
-                                    language TEXT
-                                    count_check INT DEFAULT 0
-                                )''')
+                                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                            user_id INTEGER,
+                                            user_name TEXT,
+                                            language TEXT,
+                                            count_check INT DEFAULT 0
+                                        )''')
             self.cursor.execute('''CREATE TABLE IF NOT EXISTS sell_accs (
                                     id          INTEGER PRIMARY KEY AUTOINCREMENT,
                                     user_id     INTEGER,
@@ -40,10 +40,10 @@ class DataBase:
                                 [user_id]).fetchall()
             return data if data else False
 
-    def add_user(self,user_id,user_name):
-        with self.connect:
-            return self.cursor.execute('''INSERT INTO users(user_id,user_name,language) VALUES (?,?,?)''',
-                                       [user_id,user_name,'RU'])
+    #ef add_user(self,user_id,user_name):
+    #   with self.connect:
+    #       return self.cursor.execute('''INSERT INTO users(user_id,user_name,language) VALUES (?,?,?)''',
+    #                                  [user_id,user_name,'RU'])
 
     def get_users(self):
         with self.connect:
@@ -82,15 +82,15 @@ class DataBase:
             return self.cursor.execute('''UPDATE users SET count_check=(?) WHERE user_id=(?)''',
                                        [count,user_id])
 
-    def get_count_check(self,user_id):
-        with self.connect:
-            return self.cursor.execute('''SELECT count_check FROM users WHERE user_id=(?)''',
-                                       [user_id]).fetchone()
-    def get_all_checks(self):
-        with self.connect:
-            counts = self.cursor.execute('''SELECT count_check FROM users''').fetchall()
-            count = [el[0] for el in counts]
-            return sum(count)
+    #def get_count_check(self,user_id):
+    #    with self.connect:
+    #        return self.cursor.execute('''SELECT count_check FROM users WHERE user_id=(?)''',
+    #                                   [user_id]).fetchone()
+    #def get_all_checks(self):
+    #    with self.connect:
+    #        counts = self.cursor.execute('''SELECT count_check FROM users''').fetchall()
+    #        count = [el[0] for el in counts]
+    #        return sum(count)
 #----------------------------------SELL_ACCOUNTS-----------------------------------
 
     def add_account(self,user_id,login,password,label,status,buyer_id):

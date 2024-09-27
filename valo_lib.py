@@ -89,15 +89,21 @@ class Auth:
             cookies['cookie'][cookie[0]] = str(cookie).split('=')[1].split(';')[0]
 
         data = {"type": "auth", "username": username, "password": password, "remember": True}
+        try:
+            async with session.put('https://auth.riotgames.com/api/v1/authorization', json=data,
+                                headers=self._headers) as r:
+                print(r.status)
 
-        async with session.put('https://auth.riotgames.com/api/v1/authorization', json=data,
-                               headers=self._headers) as r:
-            data = await r.json()
-            for cookie in r.cookies.items():
-                cookies['cookie'][cookie[0]] = str(cookie).split('=')[1].split(';')[0]
+                if r.content_type != 'application/json':
+                    return {'limit':'429'}
+        except:
+            pass
+        data = await r.json()
+        for cookie in r.cookies.items():
+            cookies['cookie'][cookie[0]] = str(cookie).split('=')[1].split(';')[0]
 
         await session.close()
-
+        print(await r.json())
         if data['type'] == 'response':
             expiry_token = datetime.now() + timedelta(hours=1)
 

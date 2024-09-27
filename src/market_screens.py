@@ -9,7 +9,7 @@ def image_skins_market(lang,skin_full=None):
 
     skin_full = dict(sorted(skin_full.items()))
     links = []
-    images_folder = r'src\photos\photo'
+    images_folder = r'src/photos/photo'
     # Определите размер фонового изображения
     background_width = 1260
     background_height = 200
@@ -105,11 +105,11 @@ def make_color(name,lang):
                    'BATTLEPASS':(31,61,58),#r'C:\Users\роман\PycharmProjects\valorant_checker_test_v2\DELUXE.png'
                    }
     if lang == 'RU':
-        with open(r'skins_info\collections_tier.json', 'r', encoding='UTF8') as file:
+        with open(r'skins_info/collections_tier.json', 'r', encoding='UTF8') as file:
             collection_data = json.load(file)
 
     else:
-        with open(r'skins_info\collections_tier_eng.json', 'r') as file:
+        with open(r'skins_info/collections_tier_eng.json', 'r') as file:
             collection_data = json.load(file)
     found = False  # Используем флаг для отслеживания наличия элемента в списке
     for collection, list_skins in collection_data.items():

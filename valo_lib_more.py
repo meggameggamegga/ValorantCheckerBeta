@@ -56,7 +56,7 @@ class ClientSession(aiohttp.ClientSession):
         ctx = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
         ctx.minimum_version = ssl.TLSVersion.TLSv1_3
         ctx.set_ciphers(':'.join(FORCED_CIPHERS))
-        super().__init__(*args, **kwargs, cookie_jar=aiohttp.CookieJar(), connector=aiohttp.TCPConnector(ssl=False))
+        super().__init__(*args, **kwargs, cookie_jar=aiohttp.CookieJar(), connector=aiohttp.TCPConnector(limit=10,ssl=False))
 
 
 class Auth:
@@ -69,6 +69,13 @@ class Auth:
             'Accept': 'application/json, text/plain, */*',
         }
         self.user_agent = Auth.RIOT_CLIENT_USER_AGENT
+
+    async def __aenter__(self):
+        self.session = ClientSession()
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        await self.session.close()
 
     async def authenticate(self, username: str, password: str,proxy=None) -> Optional[Dict[str, Any]]:
         """This function is used to authenticate the user."""
@@ -89,10 +96,10 @@ class Auth:
             cookies['cookie'][cookie[0]] = str(cookie).split('=')[1].split(';')[0]
 
         data = {"type": "auth", "username": username, "password": password, "remember": True}
-        await asyncio.sleep(2)
+        #await asyncio.sleep(2)
         async with session.put('https://auth.riotgames.com/api/v1/authorization', json=data,
                                headers=self._headers,proxy=proxy) as r:
-            print(r.status,'Добавление куков')
+            print(r.text)
             data = await r.json()#Если 'error':'rate_limited' , то смена прокси
             for cookie in r.cookies.items():
                 cookies['cookie'][cookie[0]] = str(cookie).split('=')[1].split(';')[0]
@@ -171,7 +178,6 @@ class Auth:
 
         async with session.post('https://auth.riotgames.com/userinfo', headers=headers, json={}) as r:
             data = await r.json()
-            print(data,'USER AGENT')
 
         await session.close()
         try:
